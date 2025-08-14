@@ -1,0 +1,800 @@
+{
+	"info": {
+		"_postman_id": "702b2cb8-026b-406d-902c-6244f8c0e8ea",
+		"name": "FinanceVerse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28497237"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Captura o valor do header Authorization da resposta\r",
+									"const authHeader = pm.response.headers.get(\"Authorization\");\r",
+									"console.log(\"Authorization Header:\", authHeader);\r",
+									"\r",
+									"\r",
+									"// Salva o token numa variável de ambiente\r",
+									"if(authHeader) {\r",
+									"    pm.collectionVariables.set(\"AUTH_TOKEN\", authHeader);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/api/users",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page[size]",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page[number]",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{HOST}}/api/users",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page[size]",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "page[number]",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "access-token",
+									"value": "S5wfScETwU4Ixzfre6yIQw"
+								},
+								{
+									"key": "token-type",
+									"value": "Bearer"
+								},
+								{
+									"key": "client",
+									"value": "1nncxK5oRZoVOBx-3O4wKg"
+								},
+								{
+									"key": "expiry",
+									"value": "1750706341"
+								},
+								{
+									"key": "uid",
+									"value": "email@example.com"
+								},
+								{
+									"key": "authorization",
+									"value": "Bearer eyJhY2Nlc3MtdG9rZW4iOiJTNXdmU2NFVHdVNEl4emZyZTZ5SVF3IiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjFubmN4SzVvUlpvVk9CeC0zTzR3S2ciLCJleHBpcnkiOiIxNzUwNzA2MzQxIiwidWlkIjoiZW1haWxAZXhhbXBsZS5jb20ifQ=="
+								},
+								{
+									"key": "etag",
+									"value": "W/\"b9ce9621d397c42f18d311f1876eef13\""
+								},
+								{
+									"key": "cache-control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "set-cookie",
+									"value": "_finance_verse_api_session=FgL%2BUwbeJ0pY4xRnzECrWlDHFFhT6uTUBa2lJH4B3BHZPTSRTMR1JJRcvqZ%2FW4f6P1HhmiRog4Bel0KFpfhhRtEQKnV662ulSuFhLz%2FReRULsX95scEpVFIJX4fjHJLMuO2hTGHHEzIi2bOlMBFD4t03eQGvsbnHSRMZkwsCMoyFFkfXfBT3QOe4pyrlefkp6szDw33msyu46DUCaoJisNqt27%2FryWPtN1QfaTLHivoQW7OL0L3%2Boib0Zj5B1fiX%2FK9Ijtn1EX9J%2BElCf9xcv9rcH33dhEwkHNUPpwuvlMfPEuBJ%2BjN9XSct6kDT2OiDPJS8m%2Bv4vUN2yJogsi16Md2zfyRtwlepL75WEgQSuDU1LAS%2F2Z61%2FurmsMaR19l3O%2F%2FX9frrUCaq4FAP57E23gt8kMDIeYRnQ8KTiVr3nue%2F63aqkU6JW7OzQQj2ZAJzE288QZZIcKaWM1fo2HWnpy9hQdbjmsxNuk6s2fL%2F7hHu8EvMLBQhcQ1d6HAEWCM2qAYZ35GIjbfec6bzeYN07YLkpIVNheciJ40SfbtY2f1ZBmJxpO3L6WxBQTB4NMt%2BiUmh6rOqxuZ1Pwc8aKGtm1487B07CDZOg5iG1IzKkU%2B8YCF5rrGdzGNfeFpDgraR9pD92DVjQOLWz27X95zRSaHzCAaZz7ElsFs487mwkjrxwno%3D--LEM6rgcmOpAn1rTt--5nt7vFIaw61AetBQP%2Bn41Q%3D%3D; path=/; httponly; samesite=lax"
+								},
+								{
+									"key": "x-request-id",
+									"value": "8c82b9f6-7180-4af2-9780-021bd6188c1c"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.094668"
+								},
+								{
+									"key": "server-timing",
+									"value": "start_processing.action_controller;dur=0.01, sql.active_record;dur=4.28, instantiation.active_record;dur=4.32, render.active_model_serializers;dur=0.28, process_action.action_controller;dur=52.89"
+								},
+								{
+									"key": "Content-Length",
+									"value": "237"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 6,\n            \"name\": \"Usuario 67\",\n            \"email\": \"email@example.com\",\n            \"createdAt\": \"2025-06-09T15:17:12.302-03:00\",\n            \"updatedAt\": \"2025-06-09T16:27:04.298-03:00\"\n        }\n    ],\n    \"meta\": {\n        \"pagination\": {\n            \"totalCount\": 1,\n            \"totalPages\": 1,\n            \"currentPage\": 1,\n            \"perPage\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{HOST}}/api/users/004e1dc3-71b9-4886-b24f-b3c4bab3d7f9",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"004e1dc3-71b9-4886-b24f-b3c4bab3d7f9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Show User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/users/512cbc56-0203-4919-9a94-910a9d05fcdc",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"512cbc56-0203-4919-9a94-910a9d05fcdc"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "access-token",
+									"value": "S5wfScETwU4Ixzfre6yIQw"
+								},
+								{
+									"key": "token-type",
+									"value": "Bearer"
+								},
+								{
+									"key": "client",
+									"value": "1nncxK5oRZoVOBx-3O4wKg"
+								},
+								{
+									"key": "expiry",
+									"value": "1750706341"
+								},
+								{
+									"key": "uid",
+									"value": "email@example.com"
+								},
+								{
+									"key": "authorization",
+									"value": "Bearer eyJhY2Nlc3MtdG9rZW4iOiJTNXdmU2NFVHdVNEl4emZyZTZ5SVF3IiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjFubmN4SzVvUlpvVk9CeC0zTzR3S2ciLCJleHBpcnkiOiIxNzUwNzA2MzQxIiwidWlkIjoiZW1haWxAZXhhbXBsZS5jb20ifQ=="
+								},
+								{
+									"key": "etag",
+									"value": "W/\"0af9ea774fbeb1e3c56e0e3238f0f2ea\""
+								},
+								{
+									"key": "cache-control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "set-cookie",
+									"value": "_finance_verse_api_session=hNf0TABEX3H66oJVeRJkfamlwWAXHqxV2ESlTFx7GvkF3lr2hxfqRsjoMJfhbRy5L0QykrN01WBVI%2BIq%2FypOwokF5E7Mm3moFTgdNrJOnrV4eMWZwbdDk4vuAlNJMhe2aULe2H%2Bm2wz96KWF4ZFCM1hSxNDDkTfUpudl%2BEP2VfjNILt2m7zmoKBCgDamR7tdjnlJ02VuTRi6P0HgbqdeNDQSBE4osN5eT%2BPh%2Fg7wLZbpXSH19LR58TVpG4j4FQUKlgaAzmD3UU5rgPyf49Ju%2BPgDOBmbzi4uGEnih4Fh0HyyDg6Zq3ZclNgwJqdpMxuScEv4ikoN3Xi6YRIDlcamnWwv2j%2BmVKbqmSDx2D%2Bhgm3hS%2B68xZ90K3REbw5mSncb%2BzU0RoE%2BkXWXQOWSthYgfC83Hw2AH8qVeLkaK3LVk21I4LL5pqPMP3sWTAjJBSZ7Bnp%2BY5Yp5ZJzZZZdB4zb8ChUd3XsbfWo%2FGYvyviQa%2FmaV76sZKHyd13OGVwlIkcnEKUYX9gxRzrupj%2BULVcwUnAMrdgwWQ0yrhzlTRKiF9T9CTJFotUSWHsvSTOZIlzN26kByxrUB15rT2YAwm40iqJs8G3u2ORX0NqLof5ms70cBMOpJ%2BYv8Y6QEgmyqvHiA6MX6iTmQgDzXSif2Uax3PSLrdd2xOFze2qGUTS8%2BWvy7g0%3D--Fl8PrzsmpR0Yb7SH--z9GGfrLSGYvUHtUE%2FDPfiQ%3D%3D; path=/; httponly; samesite=lax"
+								},
+								{
+									"key": "x-request-id",
+									"value": "610f160e-0e2b-4b97-aa96-10447a6fabb5"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.014230"
+								},
+								{
+									"key": "server-timing",
+									"value": "start_processing.action_controller;dur=0.01, sql.active_record;dur=0.90, instantiation.active_record;dur=0.10, render.active_model_serializers;dur=0.22, process_action.action_controller;dur=4.95"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"Usuario 67\",\n        \"email\": \"email@example.com\",\n        \"createdAt\": \"2025-06-09T15:17:12.302-03:00\",\n        \"updatedAt\": \"2025-06-09T16:27:04.298-03:00\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Captura o valor do header Authorization da resposta\r",
+									"const authHeader = pm.response.headers.get(\"Authorization\");\r",
+									"console.log(\"Authorization Header:\", authHeader);\r",
+									"\r",
+									"\r",
+									"// Salva o token numa variável de ambiente\r",
+									"if(authHeader) {\r",
+									"    pm.collectionVariables.set(\"AUTH_TOKEN\", authHeader);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"name\": \"Usuario 1\",\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/users",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"user\": {\r\n    \"name\": \"Usuario 1\",\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/users",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"a330cc903b5bd15a7d1d468a86eabd0d\""
+								},
+								{
+									"key": "cache-control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "x-request-id",
+									"value": "0ed29685-9f96-4e27-af2b-ce760c215af8"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.194201"
+								},
+								{
+									"key": "server-timing",
+									"value": "start_processing.action_controller;dur=0.01, sql.active_record;dur=5.26, start_transaction.active_record;dur=0.01, transaction.active_record;dur=7.52, render_template.action_view;dur=1.20, process.action_mailer;dur=7.38, deliver.action_mailer;dur=4.19, render.active_model_serializers;dur=0.26, process_action.action_controller;dur=189.77"
+								},
+								{
+									"key": "Content-Length",
+									"value": "152"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 8,\n        \"name\": \"Usuario 1\",\n        \"email\": \"email@example.com\",\n        \"createdAt\": \"2025-06-09T16:32:27.902-03:00\",\n        \"updatedAt\": \"2025-06-09T16:32:27.902-03:00\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Usuario 17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/users/004e1dc3-71b9-4886-b24f-b3c4bab3d7f9",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"004e1dc3-71b9-4886-b24f-b3c4bab3d7f9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Usuario 67\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/users/512cbc56-0203-4919-9a94-910a9d05fcdc",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"512cbc56-0203-4919-9a94-910a9d05fcdc"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "access-token",
+									"value": "S5wfScETwU4Ixzfre6yIQw"
+								},
+								{
+									"key": "token-type",
+									"value": "Bearer"
+								},
+								{
+									"key": "client",
+									"value": "1nncxK5oRZoVOBx-3O4wKg"
+								},
+								{
+									"key": "expiry",
+									"value": "1750706341"
+								},
+								{
+									"key": "uid",
+									"value": "email@example.com"
+								},
+								{
+									"key": "authorization",
+									"value": "Bearer eyJhY2Nlc3MtdG9rZW4iOiJTNXdmU2NFVHdVNEl4emZyZTZ5SVF3IiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjFubmN4SzVvUlpvVk9CeC0zTzR3S2ciLCJleHBpcnkiOiIxNzUwNzA2MzQxIiwidWlkIjoiZW1haWxAZXhhbXBsZS5jb20ifQ=="
+								},
+								{
+									"key": "etag",
+									"value": "W/\"0af9ea774fbeb1e3c56e0e3238f0f2ea\""
+								},
+								{
+									"key": "cache-control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "set-cookie",
+									"value": "_finance_verse_api_session=loYmBg%2BukA1eCnvrNgyuhycaCwzNeKco71li2R8gISXl4FnOvkhccP2ezIYdGcMMFPkIS6S%2FEqN8AAN6noGPEssixfRD4PDzruHhIqDmkqmays4%2BcGwq7eVsq7dzCD80FnvjYzoMHtMT6s3fF3R7oIpi7NlWdnvSlj8dgjDBLmVPzQ%2FJ5zi8PKH9i4lJDpVemeh2n5is1S89O5daYqlw73bVfi6YKIQywUbnT%2F4aD61zdnn5xMjTzuJ65Zz9pg5qQ3sYEloihQeSCgt98X6yeuPIaJF1AGwqXdlChSgAujJp9VcncwzAbByyFPbAmUp8pk3QOMGJDK2gnmdBrxtNfdLIfaNikX84FYqlCUzNKUNEnUPDjFhQ%2BSp%2FgufQadLN1hmTFlFhft4T%2BvyKkZt9nM9kowM2LVJgV%2Bu80vHw%2FB1%2Bcx828fonMwimDFXAOMsOim8ZG9vXiKj%2BeANxUnL3cJEKBcerVo2mJbeL%2FTFUfUd%2FjriEadv9XSxwJQLcjY%2BxjcQlroqrScw2uIYnh%2BQ%2Fn%2FsxosQYdTVFmG9%2BZfLi0uLKpyn%2By0UuoKprWD%2FbEHoAoAnqv8ij0H6phzEwWDEtiv3qf0SllXPzeZa9ZIpZLYMDzXVSPJBo4cJaYL1JseKlNjCf2fsCUZUJuYliMzDw14yB4kl%2Be2Nx64ca4VtbpCe1dOw%3D--ZtOPhTAmh1CoPxuJ--0V198bcBZxd3rtM40PvFbA%3D%3D; path=/; httponly; samesite=lax"
+								},
+								{
+									"key": "x-request-id",
+									"value": "d36102fe-4b6c-4f5f-b29c-1f8026440bb7"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.010506"
+								},
+								{
+									"key": "server-timing",
+									"value": "start_processing.action_controller;dur=0.01, sql.active_record;dur=0.95, instantiation.active_record;dur=0.10, render.active_model_serializers;dur=0.22, process_action.action_controller;dur=6.17"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"Usuario 67\",\n        \"email\": \"email@example.com\",\n        \"createdAt\": \"2025-06-09T15:17:12.302-03:00\",\n        \"updatedAt\": \"2025-06-09T16:27:04.298-03:00\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Usuario 67\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{HOST}}/api/users/a970d0ee-c925-4025-bad0-779f05d0bd6a",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"a970d0ee-c925-4025-bad0-779f05d0bd6a"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Usuario 67\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/users/512cbc56-0203-4919-9a94-910a9d05fcdc",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"512cbc56-0203-4919-9a94-910a9d05fcdc"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "set-cookie",
+									"value": "_finance_verse_api_session=mhVwFYrcWOP%2FyIXwVDKDuWdnSXW0XIiiF9OONA%2B88G8pyeCyAmAm%2FkBiXUqAkPHVXaDi0XfqHgThKte6Gzrw%2BsWRlbJXbk80pEBucJANGpOJsDUXNnnbfmiM5yI13lPkvabvvKLUO90LalrwlebvXfKhJFLAkLc0aVJujifhVOCrRJBI9xnGvL9cojcZ997uZpAB0uPjS2Zi1ippEtRSKg3f3QiS3KYQxU8bPNxyOFM%2FSVEg4fSQd3yrKxb6JSAiX%2BWFpnDbdvZcAHmW1P1shY%2FmEBVlwbvfEMMZfMGsfRZ712BG1fkGrn%2F4NOVyJjBYVzKzyMiej1Lg%2BqJ0UznPAB%2FUm72uoBHL7NLkolLnlfPvj6bSrbk%2B94bm201eFE%2FiBfXj2maTGovWCJUzJThtIC6oGn3WtDDJ7HqpJGtMGQv9xWrigKRpw5qAvyNXR6rGJu1xgrmdzeidSZoSkiOU0pjbe6dpySPI1Txu5IEllCL4%2FBX5pFrMnGuhZa2VU5YriVgeTEAZffns3qs4t7fQszawRzkmkd3sbg2IaKv%2BYVXaTwhOx4rZi4sUSLQOX1egRN62mHGmXffVQ0Y%2F2yoqvwyD33BGDyhc4wXydOUJU1%2BK6t8X8up%2Fyv5OJQCSZ%2F%2FAg%2BsA3XwrL1gwgoQOvH0TfD1rFzSAd5eeD%2BfaqBGG7JiXEt8%3D--2Y2c8VbLvQps66e0--rPm6nHX8CYTKv%2FD%2BXCDJcA%3D%3D; path=/; httponly; samesite=lax"
+								},
+								{
+									"key": "x-request-id",
+									"value": "6791fdc9-f764-429a-a93b-a1d280c1327d"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.049737"
+								},
+								{
+									"key": "server-timing",
+									"value": "start_processing.action_controller;dur=0.01, sql.active_record;dur=2.43, instantiation.active_record;dur=0.08, start_transaction.active_record;dur=0.00, transaction.active_record;dur=1.81, process_action.action_controller;dur=45.14"
+								},
+								{
+									"key": "vary",
+									"value": "Origin"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AUTH_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "EMAIL",
+			"value": "email@example.com",
+			"type": "string"
+		},
+		{
+			"key": "PASSWORD",
+			"value": "abacaxi123",
+			"type": "string"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

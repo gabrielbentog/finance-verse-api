@@ -1,0 +1,32 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: finance_verse_api_development
+
+test:
+  <<: *default
+  database: finance_verse_api_test
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: finance_verse_api_production
+    username: finance_verse_api
+    password: <%= ENV["finance_verse_api_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: finance_verse_api_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: finance_verse_api_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: finance_verse_api_production_cable
+    migrations_paths: db/cable_migrate
