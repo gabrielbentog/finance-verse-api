@@ -3,7 +3,11 @@ class Api::MovementsController < Api::ApiController
 
   def index
     movements = current_api_user.movements.apply_filters(params)
-    render json: movements, each_serializer: MovementSerializer, meta: generate_meta(movements), status: :ok
+    
+    render json: movements, 
+           each_serializer: MovementSerializer, 
+           meta: generate_meta(movements), 
+           status: :ok
   end
 
   def show

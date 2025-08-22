@@ -9,12 +9,18 @@ module Filterable
       sort = params[:sort] || nil
       direction = params[:direction] || "asc"
       params_page = params[:page]
+      ransack_params = params[:q]
 
       # Filtros simples (por coluna)
       if filters.present?
         filters.each do |key, value|
           results = results.where(key => value) if column_names.include?(key.to_s)
         end
+      end
+
+      # Aplicar filtros do Ransack
+      if ransack_params.present? && results.respond_to?(:ransack)
+        results = results.ransack(ransack_params).result
       end
 
       # Ordenação
