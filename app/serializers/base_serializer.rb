@@ -4,7 +4,7 @@ class BaseSerializer < ActiveModel::Serializer
   
   # Example of a shared method:
   def formatted_date(date)
-    date.strftime("%B %d, %Y") if date.present?
+    date.strftime("%d/%m/%Y") if date.present?
   end
 
   # You can also define common attributes here if needed.

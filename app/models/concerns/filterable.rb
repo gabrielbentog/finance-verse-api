@@ -13,7 +13,6 @@ module Filterable
       # Filtros simples (por coluna)
       if filters.present?
         filters.each do |key, value|
-          debugger
           results = results.where(key => value) if column_names.include?(key.to_s)
         end
       end

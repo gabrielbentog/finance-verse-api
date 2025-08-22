@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   # Associations
   has_one_attached :avatar
+  has_many :movements, dependent: :destroy
 
   # Validations
   validates :email, presence: true, uniqueness: true

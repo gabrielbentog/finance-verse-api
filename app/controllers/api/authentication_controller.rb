@@ -8,9 +8,9 @@ class Api::AuthenticationController < Api::ApiController
       auth_token = user.create_new_auth_token
       response.headers.merge!(auth_token)
 
-      render json: { message: 'Authentication successful', user: user }, status: :ok
+      render json: user, serializer: UserSerializer
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: I18n.t('devise.failure.invalid', authentication_keys: 'email') }, status: :unauthorized
     end
   end
 

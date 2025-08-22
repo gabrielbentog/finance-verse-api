@@ -1,6 +1,6 @@
 class CreateRequestLogs < ActiveRecord::Migration[8.0]
   def change
-    create_table :request_logs do |t|
+    create_table :request_logs, id: :uuid do |t|
       t.string :method
       t.string :path
       t.string :controller

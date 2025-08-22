@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_12_142955) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_22_015013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -43,7 +43,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_142955) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "request_logs", force: :cascade do |t|
+  create_table "movements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.float "amount"
+    t.integer "movement_type"
+    t.string "category"
+    t.datetime "date"
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_movements_on_user_id"
+  end
+
+  create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "method"
     t.string "path"
     t.string "controller"
@@ -85,4 +98,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_142955) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "movements", "users"
 end
