@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
     resources :users
     resources :movements
+    resources :dashboard, only: [:index]
   end
 end
