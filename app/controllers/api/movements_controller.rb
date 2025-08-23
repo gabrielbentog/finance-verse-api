@@ -4,9 +4,13 @@ class Api::MovementsController < Api::ApiController
   def index
     movements = current_api_user.movements.apply_filters(params)
     
+    @meta = generate_meta(movements)
+
+    @meta.merge!(total_amount: current_api_user.movements.apply_filters(params.except(:page)).sum(:amount))
+
     render json: movements, 
            each_serializer: MovementSerializer, 
-           meta: generate_meta(movements), 
+           meta: @meta, 
            status: :ok
   end
 
@@ -45,5 +49,9 @@ class Api::MovementsController < Api::ApiController
 
   def movement_params
     params.require(:movement).permit(:title, :description, :amount, :movement_type, :category, :date)
+  end
+
+  def filter_params
+    params.fetch(:filter, {}).permit(:movement_type, :category, :date)
   end
 end
