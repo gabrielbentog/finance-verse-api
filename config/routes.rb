@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     post 'authenticate', to: 'authentication#authenticate'
 
     resources :users
-    resources :movements
+    resources :movements do
+      collection do
+        post :import
+      end
+    end
     resources :dashboard, only: [:index]
   end
 end

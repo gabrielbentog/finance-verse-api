@@ -88,3 +88,5 @@ gem "rack-attack", "~> 6.7"
 gem "image_processing", "~> 1.12"
 
 gem "ransack", "~> 4.3"
+
+gem "roo", "~> 2.10"
