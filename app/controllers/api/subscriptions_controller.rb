@@ -71,7 +71,7 @@ class Api::SubscriptionsController < Api::ApiController
       :is_variable_amount,
       :payment_method,
       :frequency,
-      :next_billing_date,
+      :billing_day,
       :status,
       :started_at,
       :ended_at,

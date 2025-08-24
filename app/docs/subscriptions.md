@@ -31,7 +31,7 @@ Body (JSON):
     "is_variable_amount": false,
     "payment_method": "credit_card",
     "frequency": 0,
-    "next_billing_date": "2025-09-01",
+    "billing_day": "2025-09-01",
     "status": 0,
     "started_at": "2025-08-01",
     "ended_at": "2026-08-01",
@@ -49,7 +49,7 @@ Campos do schema (migration):
 - `is_variable_amount` (boolean) - se o valor é variável
 - `payment_method` (string) - método de pagamento (ex.: credit_card)
 - `frequency` (integer) - enum (monthly, yearly, weekly, once)
-- `next_billing_date` (string) - próxima data de cobrança (string conforme migration)
+- `billing_day` (string) - próxima data de cobrança (string conforme migration)
 - `status` (integer) - enum (active, paused, cancelled)
 - `started_at` / `ended_at` (date)
 - `total_spent` (float) - total gasto até agora
@@ -81,7 +81,7 @@ uid
   "is_variable_amount": false,
   "payment_method": "credit_card",
   "frequency": 0,
-  "next_billing_date": "2025-09-01",
+  "billing_day": "2025-09-01",
   "status": 0,
   "started_at": "2025-08-01",
   "ended_at": "2026-08-01",
@@ -95,7 +95,7 @@ uid
 ```
 
 ## Observações
-- `next_billing_date` no schema atual é `string`; se preferir manipulação de datas no backend recomendo migrar para campo `date`.
+- `billing_day` no schema atual é `string`; se preferir manipulação de datas no backend recomendo migrar para campo `date`.
 - Os valores de `category`, `frequency` e `status` são enums — internamente são inteiros; na API você pode enviar tanto o inteiro quanto a string do enum dependendo do cliente, mas sugerimos usar os valores inteiros ou as strings previstas no frontend.
 - O `Filterable` do projeto já suporta filtros simples via `filter[...]`. Podemos adicionar filtros específicos (por exemplo `filter[status]`) se desejar.
 

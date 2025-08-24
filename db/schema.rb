@@ -78,7 +78,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_24_033100) do
     t.boolean "is_variable_amount"
     t.string "payment_method"
     t.integer "frequency"
-    t.string "next_billing_date"
+    t.integer "billing_day"
     t.integer "status"
     t.date "started_at"
     t.date "ended_at"
