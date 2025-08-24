@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_22_015013) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_24_033100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -71,6 +71,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_015013) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.integer "category"
+    t.float "amount"
+    t.boolean "is_variable_amount"
+    t.string "payment_method"
+    t.integer "frequency"
+    t.string "next_billing_date"
+    t.integer "status"
+    t.date "start_date"
+    t.float "total_spent"
+    t.string "last_used"
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -99,4 +117,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_015013) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "movements", "users"
+  add_foreign_key "subscriptions", "users"
 end
