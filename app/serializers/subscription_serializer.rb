@@ -16,4 +16,16 @@ class SubscriptionSerializer < BaseSerializer
              :updated_at
 
   belongs_to :user
+
+  def frequency
+    object.frequency_text
+  end
+
+  def category
+    object.category_text
+  end
+
+  def status
+    object.status_text
+  end
 end
