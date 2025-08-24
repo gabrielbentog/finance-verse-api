@@ -7,8 +7,14 @@ Rails.application.routes.draw do
 
     post 'authenticate', to: 'authentication#authenticate'
 
-    resources :users
-    resources :movements do
+  resources :users
+  resources :subscriptions do
+    collection do
+      get :analytics
+    end
+  end
+
+  resources :movements do
       collection do
         post :import
       end

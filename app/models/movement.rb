@@ -1,6 +1,4 @@
 class Movement < ApplicationRecord
-  include Filterable
-
   enum :movement_type, { income: 0, expense: 1 }
 
   # Associations

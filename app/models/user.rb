@@ -11,6 +11,7 @@ class User < ApplicationRecord
   # Associations
   has_one_attached :avatar
   has_many :movements, dependent: :destroy
+  has_many :expenses, -> { where(movement_type: 'expense') }, class_name: 'Movement'
   has_many :subscriptions, dependent: :destroy
 
   # Validations

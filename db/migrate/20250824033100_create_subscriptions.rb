@@ -9,7 +9,8 @@ class CreateSubscriptions < ActiveRecord::Migration[8.0]
       t.integer :frequency
       t.string :next_billing_date
       t.integer :status
-      t.date :start_date
+      t.date :started_at
+      t.date :ended_at
       t.float :total_spent
       t.string :last_used
       t.references :user, null: false, foreign_key: true, type: :uuid

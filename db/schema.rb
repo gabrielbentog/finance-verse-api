@@ -80,7 +80,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_24_033100) do
     t.integer "frequency"
     t.string "next_billing_date"
     t.integer "status"
-    t.date "start_date"
+    t.date "started_at"
+    t.date "ended_at"
     t.float "total_spent"
     t.string "last_used"
     t.uuid "user_id", null: false

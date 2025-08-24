@@ -6,9 +6,11 @@ class Api::MovementsController < Api::ApiController
   def index
     movements = current_api_user.movements.apply_filters(params)
     
-    @meta = generate_meta(movements)
+    extra_meta = {
+      total_amount: current_api_user.movements.apply_filters(params.except(:page)).sum(:amount)
+    }
 
-    @meta.merge!(total_amount: current_api_user.movements.apply_filters(params.except(:page)).sum(:amount))
+    @meta = generate_meta(movements, extra: extra_meta)
 
     render json: movements, 
            each_serializer: MovementSerializer, 
