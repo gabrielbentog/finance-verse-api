@@ -133,7 +133,18 @@ class Api::MovementsController < Api::ApiController
   end
 
   def movement_params
-    params.require(:movement).permit(:title, :description, :amount, :movement_type, :category, :date)
+    params.require(:movement).permit(
+      :title,
+      :description,
+      :amount,
+      :movement_type,
+      :category,
+      :date,
+      :is_business,
+      :activity_kind,
+      :tax_exemption_percentage,
+      :supporting_doc_url
+    )
   end
 
   def filter_params

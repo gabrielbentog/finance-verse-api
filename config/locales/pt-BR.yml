@@ -255,3 +255,9 @@ pt-BR:
       active: "Ativa"
       paused: "Pausada"
       cancelled: "Cancelada"
+
+  movements:
+    activity_kind:
+      comercio: "Comércio"
+      transporte: "Transporte"
+      servicos: "Serviços"

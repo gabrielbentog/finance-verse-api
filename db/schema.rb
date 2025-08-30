@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_24_033100) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_30_025307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -53,6 +53,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_24_033100) do
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_business", default: false, comment: "Indica se a despesa/receita está vinculada à atividade do MEI"
+    t.integer "activity_kind", comment: "Tipo de atividade MEI: comercio(8), transporte(16), servicos(32)"
+    t.decimal "tax_exemption_percentage", precision: 5, scale: 2, comment: "Percentual de isenção fiscal no momento do registro"
+    t.string "supporting_doc_url", comment: "Link para comprovante (PDF/JPG) da despesa/receita"
     t.index ["user_id"], name: "index_movements_on_user_id"
   end
 

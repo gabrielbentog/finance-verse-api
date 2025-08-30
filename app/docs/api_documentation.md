@@ -78,6 +78,8 @@ GET /api/movements
 | Parameter                    | Type   | Description                                    |
 |-----------------------------|--------|------------------------------------------------|
 | filter[movement_type]       | string | Filter by type ("income" or "expense")        |
+| filter[is_business]         | boolean| Filter by business-related movements           |
+| filter[activity_kind]       | integer| Filter by MEI activity type (8,16,32)         |
 | q[description_cont]         | string | Search in description (contains)              |
 | q[date_year_eq]            | number | Filter by year                                |
 | q[date_month_eq]           | number | Filter by month (1-12)                        |
@@ -117,6 +119,11 @@ GET /api/movements?q[description_cont]=salary&page[number]=1&page[size]=10
 GET /api/movements?q[amount_gteq]=1000&q[amount_lteq]=5000
 ```
 
+4. Get business-related movements for IRPF:
+```http
+GET /api/movements?filter[is_business]=true&filter[activity_kind]=8&q[date_year_eq]=2025
+```
+
 ### Create Movement
 Creates a new financial movement.
 
@@ -133,10 +140,20 @@ POST /api/movements
     "amount": 5000.00,
     "movement_type": "income",
     "category": "Salary",
-    "date": "2025-08-23"
+    "date": "2025-08-23",
+    "is_business": false,
+    "activity_kind": 8,
+    "tax_exemption_percentage": 0.0,
+    "supporting_doc_url": "https://example.com/comprovante.pdf"
   }
 }
 ```
+
+#### IRPF Fields (Optional)
+- `is_business`: Boolean - Indicates if the movement is related to MEI business activity
+- `activity_kind`: Integer - MEI activity type (8=comercio, 16=transporte, 32=servicos)
+- `tax_exemption_percentage`: Decimal - Tax exemption percentage at the time of registration
+- `supporting_doc_url`: String - URL to supporting document (PDF/JPG)
 
 #### Required Fields
 - `title`: String
@@ -208,6 +225,43 @@ The Excel file must have the following columns in the first row:
       "errors": ["Amount can't be blank", "Date is invalid"]
     }
   ]
+}
+```
+
+## IRPF (Imposto de Renda Pessoa Física) Integration
+
+The Movements API includes fields specifically designed for IRPF declaration purposes for MEI (Microempreendedor Individual):
+
+### Business-Related Movements
+- `is_business`: Boolean flag to mark movements related to MEI business activities
+- `activity_kind`: Enum for MEI activity type:
+  - `8` - Comércio (Commerce)
+  - `16` - Transporte (Transportation)
+  - `32` - Serviços (Services)
+
+### Tax Information
+- `tax_exemption_percentage`: Stores the tax exemption percentage at the time of registration
+- `supporting_doc_url`: URL to supporting documents (PDF/JPG) for tax purposes
+
+### Calculated Fields
+The API automatically calculates:
+- `taxable_amount`: Amount subject to taxation (considering exemptions)
+- `deductible_amount`: Amount that can be deducted from taxable income
+
+### Example IRPF Movement
+```json
+{
+  "id": "uuid-123",
+  "title": "Compra de material",
+  "amount": 1000.00,
+  "movement_type": "expense",
+  "is_business": true,
+  "activity_kind": 8,
+  "activity_kind_text": "Comércio",
+  "tax_exemption_percentage": 8.0,
+  "supporting_doc_url": "https://example.com/nf-123.pdf",
+  "taxable_amount": 920.00,
+  "deductible_amount": 80.00
 }
 ```
 
