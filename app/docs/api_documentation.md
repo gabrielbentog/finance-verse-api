@@ -267,6 +267,55 @@ The API automatically calculates:
 
 ## Response Status Codes
 
+## IRPF / MEI Routes (para a tela de Declaração IRPF)
+
+Use estas rotas para popular a tela IRPF (KPIs, listas de despesas/receitas empresariais e exportação de relatórios).
+
+1. KPIs e resumo
+```
+GET /api/irpf?year=2025
+```
+- Retorna KPIs (receita bruta, despesas, lucro, parcela isenta calculada) e detalhe para o ano selecionado.
+
+2. Listar despesas empresariais
+```
+GET /api/irpf/expenses?year=2025&nf=with&page[number]=1&page[size]=20
+```
+- Parâmetros:
+  - `year` (opcional) — ano-base
+  - `nf` (opcional) — `with` (com comprovante), `without` (sem comprovante), `all` (padrão)
+  - `page[number]`, `page[size]` — paginação
+
+3. Listar receitas empresariais
+```
+GET /api/irpf/revenues?year=2025&page[number]=1&page[size]=20
+```
+
+4. Gerar relatório (JSON)
+```
+GET /api/reports/irpf?year=2025
+```
+- Retorna um resumo pronto para gerar relatório no frontend.
+
+5. Exportar relatório (PDF/Excel)
+```
+POST /api/reports/irpf/export
+Content-Type: application/json
+
+{
+  "year": 2025,
+  "format": "pdf" // opcional
+}
+```
+- Retorna `{ data: { download_url: "https://..." } }` ou, em produção, pode enfileirar um job e retornar um signed URL / job id.
+
+Exemplo de uso no frontend (fluxo):
+- Chamar `GET /api/irpf?year=2025` para preencher KPIs e detalhamento.
+- Chamar `GET /api/irpf/expenses?year=2025&nf=with` para popular a tabela de despesas empresariais.
+- Chamar `GET /api/irpf/revenues?year=2025` para popular a tabela de receitas.
+- Ao clicar em "Exportar PDF/Excel", chamar `POST /api/reports/irpf/export` e usar `download_url` retornado.
+
+
 | Code | Description                                          |
 |------|------------------------------------------------------|
 | 200  | Success                                               |

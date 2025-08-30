@@ -19,6 +19,13 @@ Rails.application.routes.draw do
         post :import
       end
     end
+    
+    # IRPF / MEI routes
+    get 'irpf', to: 'irpf#index'
+    get 'irpf/expenses', to: 'irpf#expenses'
+    get 'irpf/revenues', to: 'irpf#revenues'
+    get 'reports/irpf', to: 'irpf#report'
+    post 'reports/irpf/export', to: 'irpf#export'
     resources :dashboard, only: [:index]
   end
 end
