@@ -70,7 +70,7 @@ class Api::MovementsController < Api::ApiController
           date: parse_date(row['Data']),
           amount: row['Valor'].to_f.abs,
           description: row['Descrição'],
-          category: row['Categoria'],
+          category: map_category_name(row['Categoria']),
           title: row['Descrição'].to_s[0..50],
           movement_type: parse_movement_type(row['Tipo'])
         )
@@ -104,6 +104,29 @@ class Api::MovementsController < Api::ApiController
     rescue => e
       render json: { error: "Error processing file: #{e.message}" }, 
              status: :unprocessable_entity
+    end
+  end
+
+  # Map Portuguese category labels (from import) to enum keys defined in Movement
+  def map_category_name(name)
+    return nil if name.blank?
+
+    normalized = name.to_s.downcase
+
+    case
+    when normalized.include?('aliment') then 'food'
+    when normalized.include?('gasolina') || normalized.include?('combustivel') || normalized.include?('posto') then 'transport'
+    when normalized.include?('internet') || normalized.include?('wifi') then 'internet'
+    when normalized.include?('hospedag') || normalized.include?('hotel') then 'lodging'
+    when normalized.include?('marketing') || normalized.include?('ads') then 'marketing'
+    when normalized.include?('aluguel') then 'rent'
+    when normalized.include?('transporte') then 'transport'
+    when normalized.include?('saúde') || normalized.include?('medic') then 'health'
+    when normalized.include?('material') || normalized.include?('suprimentos') then 'supplies'
+    when normalized.include?('faculdade') || normalized.include?('curso') then 'education'
+    when normalized.include?('educação') || normalized.include?('ensino') then 'education'
+    when normalized.include?('saude') || normalized.include?('medic') then 'health'
+    else 'other'
     end
   end
 

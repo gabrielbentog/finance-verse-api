@@ -258,6 +258,18 @@ pt-BR:
 
   movements:
     activity_kind:
-      comercio: "Comércio"
-      transporte: "Transporte"
-      servicos: "Serviços"
+      commerce: "Comércio"
+      transport: "Transporte"
+      services: "Serviços"
+    categories:
+      food: "Alimentação"
+      transport: "Transporte"
+      internet: "Internet"
+      lodging: "Hospedagem"
+      marketing: "Marketing"
+      rent: "Aluguel"
+      supplies: "Materiais"
+      education: "Educação"
+      health: "Saúde"
+      personal: "Pessoal"
+      other: "Outro"

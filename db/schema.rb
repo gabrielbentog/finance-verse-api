@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_30_025307) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_30_050000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -48,7 +48,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_30_025307) do
     t.text "description"
     t.float "amount"
     t.integer "movement_type"
-    t.string "category"
     t.datetime "date"
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
@@ -57,6 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_30_025307) do
     t.integer "activity_kind", comment: "Tipo de atividade MEI: comercio(8), transporte(16), servicos(32)"
     t.decimal "tax_exemption_percentage", precision: 5, scale: 2, comment: "Percentual de isenção fiscal no momento do registro"
     t.string "supporting_doc_url", comment: "Link para comprovante (PDF/JPG) da despesa/receita"
+    t.integer "category"
     t.index ["user_id"], name: "index_movements_on_user_id"
   end
 

@@ -5,6 +5,7 @@ class MovementSerializer < BaseSerializer
              :amount,
              :movement_type,
              :category,
+             :category_text,
              :date,
              :is_business,
              :activity_kind,

@@ -1,6 +1,23 @@
 class Movement < ApplicationRecord
   enum :movement_type, { income: 0, expense: 1 }
-  enum :activity_kind, { comercio: 0, transporte: 1, servicos: 2 }
+
+  # activity_kind for IRPF/MEI (numeric values preserved)
+  enum :activity_kind, { commerce: 0, transport: 1, services: 2 }, prefix: true
+
+  # main tax-relevant categories (enum keys in English)
+  enum :category, {
+    food: 0,
+    transport: 1,
+    internet: 2,
+    lodging: 3,
+    marketing: 4,
+    rent: 5,
+    supplies: 6,
+    education: 7,
+    health: 8,
+    personal: 9,
+    other: 99
+  }
 
   # Associations
   belongs_to :user
@@ -33,7 +50,7 @@ class Movement < ApplicationRecord
 
   # Ransack
   def self.ransackable_attributes(auth_object = nil)
-    %w[title description amount movement_type category date is_business activity_kind tax_exemption_percentage created_at updated_at] + _ransackers.keys
+  %w[title description amount movement_type category date is_business activity_kind tax_exemption_percentage created_at updated_at] + _ransackers.keys
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -44,6 +61,12 @@ class Movement < ApplicationRecord
   def activity_kind_text
     return nil unless activity_kind.present?
     I18n.t("movements.activity_kind.#{activity_kind}", default: activity_kind.to_s.humanize)
+  end
+
+  def category_text
+    return nil unless category.present?
+
+    I18n.t("movements.categories.#{category}", default: category.to_s.humanize)
   end
 
   def taxable_amount
