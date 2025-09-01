@@ -1,0 +1,11 @@
+<% content_for :title, "New financial movement" %>
+
+<h1>New financial movement</h1>
+
+<%= render "form", financial_movement: @financial_movement %>
+
+<br>
+
+<div>
+  <%= link_to "Back to financial movements", financial_movements_path %>
+</div>

@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Financial movements" %>
+
+<h1>Financial movements</h1>
+
+<div id="financial_movements">
+  <% @financial_movements.each do |financial_movement| %>
+    <%= render financial_movement %>
+    <p>
+      <%= link_to "Show this financial movement", financial_movement %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New financial movement", new_financial_movement_path %>
