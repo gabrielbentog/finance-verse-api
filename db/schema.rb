@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_30_050000) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_02_123845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -113,6 +113,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_30_050000) do
     t.jsonb "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "otp_secret"
+    t.boolean "otp_required_for_login", default: false, null: false
+    t.jsonb "otp_backup_codes", default: [], null: false
+    t.datetime "otp_last_used_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

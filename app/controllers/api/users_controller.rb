@@ -46,6 +46,13 @@ class Api::UsersController < Api::ApiController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(
+      :name,
+      :email,
+      :password,
+      :password_confirmation,
+      :avatar,
+      :otp_required_for_login
+    )
   end
 end
