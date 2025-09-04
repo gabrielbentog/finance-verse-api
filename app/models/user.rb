@@ -34,7 +34,7 @@ class User < ApplicationRecord
   def totp
     return nil if otp_secret.blank?
     # defina o issuer do seu app
-    ROTP::TOTP.new(otp_secret, issuer: "SeuApp", interval: TOTP_INTERVAL)
+    ROTP::TOTP.new(otp_secret, issuer: "FinanceVerse", interval: TOTP_INTERVAL)
   end
 
   def provisioning_uri(account_name = email)

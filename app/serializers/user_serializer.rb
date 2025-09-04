@@ -1,5 +1,5 @@
 class UserSerializer < BaseSerializer
-  attributes :id, :name, :email, :avatar_url, :created_at, :updated_at
+  attributes :id, :name, :email, :avatar_url, :created_at, :updated_at, :two_factor_enabled
 
   def avatar_url
     if object.avatar.attached?
@@ -7,5 +7,9 @@ class UserSerializer < BaseSerializer
     else
       nil
     end
+  end
+
+  def two_factor_enabled
+    object.two_factor_enabled?
   end
 end

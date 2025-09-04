@@ -8,8 +8,8 @@ class Api::TwoFactorVerificationController < Api::ApiController
     if user.verify_otp(code) == true || user.consume_backup_code!(code)
       token_headers = user.create_new_auth_token
       response.headers.merge!(token_headers)
-      render json: { message: "2FA verified", user: user }, status: :ok
-    else
+      render json: user, serializer: UserSerializer
+   else
       render json: { error: "Invalid code" }, status: :unauthorized
     end
   rescue ActiveSupport::MessageVerifier::InvalidSignature
